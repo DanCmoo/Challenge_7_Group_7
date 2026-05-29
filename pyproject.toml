@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "challenge-7-group-7"
+version = "0.1.0"
+description = "Transfer Learning: Few-Shot Classification, Neural Style Transfer, and Domain Shift Adaptation"
+authors = ["Group 7 <group7@udistrital.edu.co>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+# ─── Core ML ────────────────────────────────────────────────────────────────
+# Default: CPU + MPS (Mac Apple Silicon).
+# Windows/Linux CUDA users → run:  make install-cuda
+torch        = ">=2.3.0,<3.0.0"
+torchvision  = ">=0.18.0,<1.0.0"
+timm         = ">=1.0.0,<2.0.0"
+
+# ─── Data & Numerics ────────────────────────────────────────────────────────
+numpy        = ">=1.26.0,<3.0.0"
+pillow       = ">=10.0.0,<13.0.0"
+scikit-learn = ">=1.5.0,<2.0.0"
+scipy        = ">=1.11.0,<2.0.0"
+pandas       = ">=2.2.0,<4.0.0"
+
+# ─── Visualization ──────────────────────────────────────────────────────────
+matplotlib   = ">=3.9.0,<4.0.0"
+seaborn      = ">=0.13.0,<1.0.0"
+grad-cam     = ">=1.5.0,<2.0.0"
+
+# ─── Utilities ──────────────────────────────────────────────────────────────
+tqdm         = ">=4.66.0,<5.0.0"
+
+# ─── Jupyter ────────────────────────────────────────────────────────────────
+jupyter      = ">=1.0.0,<2.0.0"
+ipykernel    = ">=6.29.0,<8.0.0"
+ipywidgets   = ">=8.1.0,<9.0.0"
+jupyterlab   = ">=4.0.0,<5.0.0"
+
+[build-system]
+requires      = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
