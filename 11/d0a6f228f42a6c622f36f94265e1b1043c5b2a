@@ -1,0 +1,49 @@
+README.md
+  s_52108797ba525c::t_7a4937543d9603 1-97
+.gitignore
+  s_52108797ba525c::t_154ea833e574cf 1-34
+src/domain_adaptation.py
+  s_52108797ba525c::t_d131b7a3a83543 1-378
+pyproject.toml
+  s_52108797ba525c::t_688262fbc5bf87 1-10,22,39-40,42
+  s_52108797ba525c::t_3ff938db47b002 11-21,23-38,41
+src/utils.py
+  s_52108797ba525c::t_ab446c8b72f995 1-207
+src/classifier.py
+  s_52108797ba525c::t_9542004cee84f6 1-279
+Makefile
+  s_52108797ba525c::t_7cb6133e5d5825 1-53
+Challenge7.md
+  h_5ef9474d151122 1-593
+CHECKLIST.md
+  s_52108797ba525c::t_b0d9193645297a 1-100
+notebooks/part_b_style_transfer.ipynb
+  s_52108797ba525c::t_ac26d94ba95443 1-231
+src/style_transfer.py
+  s_52108797ba525c::t_7a0461a0ca14e3 1-262
+notebooks/part_c_domain_adaptation.ipynb
+  s_52108797ba525c::t_df08ac6ef943d5 1-417
+notebooks/part_a_classification.ipynb
+  s_52108797ba525c::t_4be40e89f69f05 1-303
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "11d0a6f228f42a6c622f36f94265e1b1043c5b2a",
+  "prompts": {},
+  "humans": {
+    "h_5ef9474d151122": {
+      "author": "DanCmoo <dankurso845@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_52108797ba525c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d9194235-9ab4-4905-bec1-78b02b35efd6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "DanCmoo <dankurso845@gmail.com>"
+    }
+  }
+}
