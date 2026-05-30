@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{placeins}
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{url}
@@ -20,22 +21,22 @@
 Few-Shot Classification, Neural Style Transfer,\\
 and Domain Adaptation}
 
+
 \author{
-  \IEEEauthorblockN{Juan Diego Lozano Luna}
-  \IEEEauthorblockA{\textit{20231020040}}
-  \and
-  \IEEEauthorblockN{Daniel Esteban Camacho Ospina}
-  \IEEEauthorblockA{\textit{20231020046}}
-  \and
-  \IEEEauthorblockN{Juan Sebasti\'{a}n Rodr\'{i}guez Carre\~{n}o}
-  \IEEEauthorblockA{\textit{20231020107}}
-  \\[6pt]
-  \IEEEauthorblockA{
-    \textit{Machine Learning} \\
-    \textit{Systems Engineering Program, Faculty of Engineering} \\
-    \textit{Universidad Distrital Francisco Jos\'{e} de Caldas} \\
-    Bogot\'{a}, Colombia
-  }
+\IEEEauthorblockN{Juan Diego Lozano Luna}
+\IEEEauthorblockA{\textit{20231020040}}
+\and
+\IEEEauthorblockN{Daniel Esteban Camacho Ospina}
+\IEEEauthorblockA{
+\textit{20231020046}\\\\\\
+Machine Learning\\
+Systems Engineering Program, Faculty of Engineering\\
+Francisco Jos\'e de Caldas District University\\
+Bogot\'a, Colombia
+}
+\and
+\IEEEauthorblockN{Juan Sebasti\'an Rodr\'iguez Carre\~no}
+\IEEEauthorblockA{\textit{20231020107}}
 }
 
 \maketitle
@@ -46,19 +47,19 @@ under the Art\,$\to$\,Clipart shift of the Office-Home benchmark~\cite{venkatesw
 Working with six office-product categories (Calculator, Keyboard, Laptop, Monitor, Mouse,
 and Printer), we address the problem across three complementary angles.
 First, we compare three few-shot classification strategies based on ResNet-50~\cite{he2016resnet}:
-(i)~training from random initialisation, (ii)~frozen-backbone feature extraction, and
+(i)~training from random initialization, (ii)~frozen-backbone feature extraction, and
 (iii)~selective fine-tuning of the last two residual blocks.
 Second, we apply Neural Style Transfer (NST)~\cite{gatys2016nst} with a VGG-19 backbone to
-synthesise Clipart-style training images from Art-domain content, generating a 180-image
+synthesize Clipart-style training images from Art-domain content, generating a 180-image
 augmentation corpus.
-Third, we assess two domain adaptation strategies---target-domain fine-tuning on 40~labelled
+Third, we assess two domain adaptation strategies---target-domain fine-tuning on 40~labeled
 Clipart images per class, and style-transfer augmentation without any target-domain labels---and
 compare them using accuracy, per-class breakdown, and the domain shift penalty
 $\Delta_{\text{shift}} = \text{Acc}_{\text{src}} - \text{Acc}_{\text{tgt}}$.
 Results confirm that ImageNet pretraining closes most of the gap attributable to the small source
 domain (18--51 images per class), and that selective target fine-tuning reduces $\Delta_{\text{shift}}$
 more effectively than style augmentation alone.
-Grad-CAM visualisations and t-SNE projections before and after adaptation illuminate the
+Grad-CAM visualizations and t-SNE projections before and after adaptation illuminate the
 feature-space dynamics underlying these gains.
 \end{abstract}
 
@@ -76,7 +77,7 @@ A central challenge in applied machine learning is deploying models trained on a
 sharing the same semantic categories~\cite{zhuang2021transfer}.
 The Office-Home dataset~\cite{venkateswara2017officehome} is a standard benchmark for this
 setting: it collects images of 65 everyday objects across four visual domains---Artistic
-paintings (\textbf{Art}), flat-colour \textbf{Clipart}, product photographs (\textbf{Product}),
+paintings (\textbf{Art}), flat-color \textbf{Clipart}, product photographs (\textbf{Product}),
 and \textbf{Real-World} photos.
 The Art\,$\to$\,Clipart shift is particularly challenging because the source domain
 contains painterly textures and complex backgrounds absent from the target domain's
@@ -86,13 +87,13 @@ We address this challenge through three interconnected experiments:
 
 \begin{enumerate}
   \item \textbf{Part A — Few-shot classification}: How much do pretraining and fine-tuning
-        strategy matter when the labelled source-domain budget is tiny
+        strategy matter when the labeled source-domain budget is tiny
         (18--51 images per class)?
-  \item \textbf{Part B — Neural Style Transfer}: Can we synthesise plausible Clipart-style
-        images from Art content using Gatys et al.'s optimisation-based NST, and how
+  \item \textbf{Part B — Neural Style Transfer}: Can we synthesize plausible Clipart-style
+        images from Art content using Gatys et al.'s optimization-based NST, and how
         do hyperparameter choices (content/style weight ratio $\alpha/\beta$) affect
         the generated images?
-  \item \textbf{Part C — Domain adaptation}: Does fine-tuning on a small labelled
+  \item \textbf{Part C — Domain adaptation}: Does fine-tuning on a small labeled
         target set or augmenting with synthetic NST images reduce the domain shift penalty?
 \end{enumerate}
 
@@ -112,7 +113,7 @@ Section~\ref{sec:conclusion} concludes.
 \subsection{Transfer Learning and Feature Extraction}
 
 Transfer learning exploits representations learned from a large source task (here,
-ImageNet classification) to improve generalisation on a smaller target task~\cite{tan2018transfer}.
+ImageNet classification) to improve generalization on a smaller target task~\cite{tan2018transfer}.
 The canonical strategies lie on a spectrum: at one extreme, a frozen backbone acts as a
 fixed feature extractor, training only a new classification head; at the other, all
 parameters are fine-tuned jointly.
@@ -124,9 +125,9 @@ features correlates strongly with downstream accuracy, motivating the use of
 
 Gatys et al.~\cite{gatys2016nst} showed that the style of an artwork and the content of a
 photograph can be disentangled within a convolutional network and recombined via pixel-space
-optimisation.
+optimization.
 Given a content image $\mathbf{p}$ and a style image $\mathbf{a}$, the generated image
-$\mathbf{x}$ is obtained by minimising:
+$\mathbf{x}$ is obtained by minimizing:
 
 \begin{equation}
   \mathcal{L}_{\text{total}}(\mathbf{p}, \mathbf{a}, \mathbf{x}) =
@@ -153,13 +154,13 @@ $G^l = F^l (F^l)^\top / (C_l H_l W_l)$ at five layers spanning different spatial
   \label{eq:style_loss}
 \end{equation}
 
-Optimisation is performed with L-BFGS directly on the pixel values of $\mathbf{x}$.
+Optimization is performed with L-BFGS directly on the pixel values of $\mathbf{x}$.
 
 \subsection{Domain Adaptation}
 
 Unsupervised and semi-supervised domain adaptation methods attempt to align source and
 target feature distributions~\cite{zhuang2021transfer}.
-The simplest supervised approach is to fine-tune a pretrained model on a small labelled
+The simplest supervised approach is to fine-tune a pretrained model on a small labeled
 target set.
 An unsupervised alternative is to augment source training data with synthetic target-style
 images, reducing the visual gap without requiring target labels.
@@ -174,7 +175,7 @@ approach by appending a domain classifier trained adversarially via a gradient r
 
 We use the Office-Home dataset~\cite{venkateswara2017officehome} restricted to six
 categories of office products: Calculator, Keyboard, Laptop, Monitor, Mouse, and Printer.
-Table~\ref{tab:dataset} summarises the per-class image counts for the two domains used.
+Table~\ref{tab:dataset} summarizes the per-class image counts for the two domains used.
 
 \begin{table}[h]
 \centering
@@ -202,10 +203,10 @@ Because several Art classes contain fewer than 50 images, a fixed 50-per-class b
 achievable uniformly.
 We therefore use all available Art images and apply a stratified 70\,\%\,/\,15\,\%\,/\,15\,\%
 train\,/\,val\,/\,test split (seed\,=\,42).
-All images are resized to $224\times224$ pixels and normalised with ImageNet
+All images are resized to $224\times224$ pixels and normalized with ImageNet
 mean and standard deviation.
 Training augmentation consists of random horizontal flipping and mild
-colour jitter; evaluation uses centre crop only.
+colour jitter; evaluation uses center crop only.
 
 % ──────────────────────────────────────────────────────────────────────────────
 \section{Methodology}
@@ -218,7 +219,7 @@ The final fully-connected layer is replaced by a linear head with six outputs.
 Three strategies are evaluated:
 
 \begin{enumerate}
-  \item \textbf{From scratch}: all weights initialised randomly; serves as the lower-bound baseline.
+  \item \textbf{From scratch}: all weights initialized randomly; serves as the lower-bound baseline.
   \item \textbf{Frozen backbone}: pretrained \texttt{IMAGENET1K\_V2} weights frozen; only the
         six-class head is trained with Adam ($\text{lr} = 10^{-3}$).
   \item \textbf{Fine-tuning}: \texttt{layer3}, \texttt{layer4}, and head unfrozen; backbone
@@ -329,7 +330,8 @@ Trainable parameter counts confirm the strategy spectrum: the frozen model train
 only the 12{,}294-parameter head, while fine-tuning exposes ${\sim}14$M parameters
 in \texttt{layer3}, \texttt{layer4}, and the head, and the scratch baseline
 trains all ${\sim}25.5$M ResNet-50 parameters.
-
+Detailed loss and accuracy trajectories are provided in
+Figure~\ref{fig:parta_curves} (Appendix).
 \subsection{Part B — Neural Style Transfer}
 
 Figure~\ref{fig:nst_gallery} (Appendix) shows one content\,/\,style\,/\,generated
@@ -338,7 +340,8 @@ The $\alpha/\beta = 10^{-4}$ ratio preserves object identity (critical for
 classification downstream) while transferring Clipart colour saturation and
 reduced texture complexity.
 At $\alpha/\beta = 10^{-3}$, shape contours are distorted; at $10^{-5}$, style
-transfer is imperceptible.
+transfer is imperceptible. Figure~\ref{fig:nst_ratio} (Appendix)
+illustrates the qualitative effect of these ratios.
 
 \subsection{Part C — Domain Adaptation}
 
@@ -389,12 +392,12 @@ at these tiny dataset sizes.
 
 \subsection{What does the $\alpha/\beta$ ratio reveal about the Art\,$\to$\,Clipart gap?}
 
-The Clipart domain is characterised by flat colours, sharp edges, and absence of
+The Clipart domain is characterized by flat colors, sharp edges, and absence of
 photorealistic texture.
 A lower ratio ($\alpha/\beta \to 0$, stronger style) consistently erases texture in the
 generated images but risks distorting the sparse edge structure that defines object identity
 in the Art domain.
-The ratio $10^{-4}$ constitutes a sweet spot where Clipart colour statistics are adopted
+The ratio $10^{-4}$ constitutes a sweet spot where Clipart color statistics are adopted
 without ablating the object silhouette, which is critical for retaining the class label.
 
 \subsection{Is target fine-tuning or style augmentation the better adaptation strategy?}
@@ -409,16 +412,16 @@ evaluation a more stable estimate.
 Style augmentation reaches $0.714$ target accuracy ($+3.4$ pp over the unadapted
 fine-tuned baseline of $0.680$), confirming that NST-generated images do bridge
 part of the domain gap.
-However, the synthetic images introduce painterly artefacts absent from true Clipart,
+However, the synthetic images introduce painterly artifacts absent from true Clipart,
 limiting the alignment.
-The key tradeoff is clear: target fine-tuning requires 40 labelled target images per
+The key tradeoff is clear: target fine-tuning requires 40 labeled target images per
 class and achieves $+20.3$ pp gain; style augmentation requires zero target labels
 and achieves $+3.4$ pp.
 
 \subsection{Where does the model still fail after adaptation?}
 
 Per-class analysis reveals that classes with the highest visual similarity in the
-Clipart domain (e.g., Mouse vs.\ Keyboard — both small, dark objects on white
+Clipart domain (e.g., Mouse vs.\ Keyboard, where both small, dark objects on white
 backgrounds) retain the highest confusion rate post-adaptation.
 Classes with distinctive shapes (Laptop, Monitor) benefit most from adaptation,
 consistent with the Grad-CAM evidence that fine-tuning redirects attention toward
@@ -436,7 +439,7 @@ via Grad-CAM and t-SNE.
 The key findings are:
 \begin{enumerate}
   \item \textbf{ImageNet pretraining dominates data size.}
-        The frozen-backbone model substantially outperforms random initialisation
+        The frozen-backbone model substantially outperforms random initialization
         even with fewer than 20 training images per class.
   \item \textbf{Selective fine-tuning further closes the source-domain gap.}
         Unfreezing the last two residual blocks with differential learning rates
@@ -444,10 +447,10 @@ The key findings are:
         early stopping is applied.
   \item \textbf{NST-based augmentation is a viable unsupervised bridge.}
         The 180 synthetic images improve target accuracy relative to the unadapted
-        baseline, at no label cost, though quality is limited by the optimisation-based
+        baseline, at no label cost, though quality is limited by the optimization-based
         generation approach.
-  \item \textbf{Labelled target fine-tuning achieves the strongest adaptation.}
-        Even a small labelled target set (40 images per class) provides a more accurate
+  \item \textbf{Labeled target fine-tuning achieves the strongest adaptation.}
+        Even a small labeled target set (40 images per class) provides a more accurate
         signal of the target distribution than style-transferred Art images.
 \end{enumerate}
 
@@ -456,8 +459,27 @@ experimenting with more recent generative models (diffusion-based style transfer
 improve synthetic image quality, and extending the comparison to all four Office-Home domains.
 
 % ──────────────────────────────────────────────────────────────────────────────
+\FloatBarrier
 \appendix
 \section{Figures}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/part_a_training_curves.png}
+  \caption{Training dynamics for the three Part A strategies (scratch, frozen backbone,
+           and fine-tuned ResNet-50). Left: training and validation loss.
+           Right: training and validation accuracy. Curves correspond to the
+           representative seed used for analysis.}
+  \label{fig:parta_curves}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/nst_ratio_comparison.png}
+  \caption{Effect of the content/style weight ratio $\alpha/\beta$
+           on Neural Style Transfer results.}
+  \label{fig:nst_ratio}
+\end{figure}
 
 \begin{figure}[h]
   \centering
@@ -485,6 +507,7 @@ improve synthetic image quality, and extending the comparison to all four Office
 \end{figure}
 
 % ──────────────────────────────────────────────────────────────────────────────
+\FloatBarrier
 \begin{thebibliography}{00}
 
 \bibitem{venkateswara2017officehome}
