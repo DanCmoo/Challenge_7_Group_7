@@ -1,0 +1,19 @@
+challenge7_group7_paper.tex
+  s_52108797ba525c::t_edb8d3147690ce 1-526
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "d4e4115d78a90278dc1db798a894c065890c9b6d",
+  "prompts": {},
+  "sessions": {
+    "s_52108797ba525c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d9194235-9ab4-4905-bec1-78b02b35efd6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "DanCmoo <dankurso845@gmail.com>"
+    }
+  }
+}
