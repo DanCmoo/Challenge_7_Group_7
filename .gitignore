@@ -12,18 +12,8 @@ notebooks/*_executed.ipynb
 # Poetry
 .venv/
 
-# Model weights (large files — commit only final checkpoints)
-checkpoints/*.pt
-
 # Generated images (large — document generation procedure instead)
 data/synthetic_target/*/
-
-# Figures output (regenerated from notebooks)
-figures/*.png
-figures/*.pdf
-
-# But keep CSVs (summary tables)
-!figures/*.csv
 
 # Dataset (already present locally)
 OfficeHomeDataset_10072016/
