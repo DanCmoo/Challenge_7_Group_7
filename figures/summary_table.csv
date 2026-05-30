@@ -1,0 +1,6 @@
+Strategy,Source Acc (mean),Target Acc (mean),Δ_shift
+scratch,0.0000 ± 0.0000,0.0000 ± 0.0000,0.0000
+frozen,0.0000 ± 0.0000,0.0000 ± 0.0000,0.0000
+finetuned,0.0000 ± 0.0000,0.0000 ± 0.0000,0.0000
+target_finetuning,0.7857 ± 0.0000,0.8831 ± 0.0000,-0.0974
+style_augmentation,0.9286 ± 0.0000,0.7143 ± 0.0000,0.2143
