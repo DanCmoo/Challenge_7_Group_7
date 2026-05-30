@@ -30,20 +30,18 @@
 
 | Strategy | Source Acc | Target Acc | Δ_shift |
 |---|---|---|---|
-| From scratch | TBD | TBD | TBD |
-| Feature extraction (frozen) | TBD | TBD | TBD |
-| Fine-tuning (best Part A) | TBD | TBD | TBD |
-| Target fine-tuning (Part C) | TBD | TBD | TBD |
-| Style-transfer augmentation (Part C) | TBD | TBD | TBD |
-
-*Fill this table after running the notebooks.*
+| From scratch | 0.357 ± 0.058 | 0.152 ± 0.006 | +0.206 |
+| Feature extraction (frozen) | 0.857 ± 0.105 | 0.576 ± 0.034 | +0.281 |
+| Fine-tuning (best Part A) | 0.881 ± 0.089 | 0.680 ± 0.048 | +0.201 |
+| Style-transfer augmentation (Part C) | 0.929 | 0.714 | +0.215 |
+| Target fine-tuning (Part C) | 0.786 | **0.883** | **−0.097** |
 
 ---
 
 ## Domain shift penalty (Δ_shift)
 
-- **Best Part A model** (fine-tuned): Δ_shift = TBD
-- **Best Part C adaptation model**: Δ_shift = TBD
+- **Best Part A model** (fine-tuned): Δ_shift = +0.201
+- **Best Part C adaptation model** (target fine-tuning): Δ_shift = −0.097
 
 ---
 
@@ -83,11 +81,11 @@ report which strategy minimises Δ_shift across all 6 classes.
 
 ## Figures produced
 
-- [ ] `figures/part_a_training_curves.png` — loss/accuracy curves for Part A
-- [ ] `figures/part_b_gallery.png` — content / style / generated for each class
-- [ ] `figures/part_c_gradcam.png` — Grad-CAM for correct and incorrect predictions
-- [ ] `figures/part_c_tsne_before_after.png` — t-SNE before and after adaptation
-- [ ] `figures/summary_table.csv` — all 5 model variants
+- [x] `figures/part_a_training_curves.png` — loss/accuracy curves for Part A
+- [x] `figures/part_b_gallery.png` — content / style / generated for each class
+- [x] `figures/part_c_gradcam.png` — Grad-CAM for correct and incorrect predictions
+- [x] `figures/part_c_tsne_before_after.png` — t-SNE before and after adaptation
+- [x] `figures/summary_table.csv` — all 5 model variants
 
 ---
 

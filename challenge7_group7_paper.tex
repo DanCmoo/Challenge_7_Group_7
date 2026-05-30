@@ -318,9 +318,9 @@ Table~\ref{tab:parta} compares the three ResNet-50 strategies across seeds.
 \toprule
 \textbf{Strategy} & \textbf{Src Acc} & \textbf{Tgt Acc} & \textbf{$\Delta_{\text{shift}}$} \\
 \midrule
-From scratch  & -- $\pm$ -- & -- $\pm$ -- & -- \\
-Frozen        & -- $\pm$ -- & -- $\pm$ -- & -- \\
-Fine-tuned    & -- $\pm$ -- & -- $\pm$ -- & -- \\
+From scratch  & $0.357 \pm 0.058$ & $0.152 \pm 0.006$ & $0.206$ \\
+Frozen        & $0.857 \pm 0.105$ & $0.576 \pm 0.034$ & $0.281$ \\
+Fine-tuned    & $\mathbf{0.881 \pm 0.089}$ & $\mathbf{0.680 \pm 0.048}$ & $\mathbf{0.201}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -347,17 +347,18 @@ Clipart test set.
 
 \begin{table}[h]
 \centering
-\caption{Part C Results — All five model variants on Clipart test (target).}
+\caption{Part C Results — All five model variants. Source = Art test, Target = Clipart test.
+         Part~A values are mean\,$\pm$\,std over 3 seeds; Part~C values use seed 42.}
 \label{tab:partc}
 \begin{tabular}{lrrr}
 \toprule
 \textbf{Strategy} & \textbf{Src Acc} & \textbf{Tgt Acc} & \textbf{$\Delta_{\text{shift}}$} \\
 \midrule
-From scratch         & -- & -- & -- \\
-Frozen backbone      & -- & -- & -- \\
-Fine-tuned (best A)  & -- & -- & -- \\
-Target fine-tuning   & -- & -- & -- \\
-Style augmentation   & -- & -- & -- \\
+From scratch            & $0.357 \pm 0.058$ & $0.152 \pm 0.006$ & $+0.206$ \\
+Frozen backbone         & $0.857 \pm 0.105$ & $0.576 \pm 0.034$ & $+0.281$ \\
+Fine-tuned (Part A)     & $0.881 \pm 0.089$ & $0.680 \pm 0.048$ & $+0.201$ \\
+Style augmentation      & $0.929$ & $0.714$ & $+0.215$ \\
+Target fine-tuning      & $0.786$ & $\mathbf{0.883}$ & $\mathbf{-0.097}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -376,11 +377,15 @@ visible before adaptation.
 \subsection{Does pretraining matter more than fine-tuning strategy when data is scarce?}
 
 Yes.
-Even the frozen-backbone strategy substantially outperforms training from scratch,
-confirming that ImageNet features provide a strong generic visual representation~\cite{kornblith2019transfer}.
-The gain from fine-tuning over a frozen backbone depends on whether the source domain
-is large enough to prevent overfitting of the unfrozen layers; with only 126 Art
-training images (70\,\% of 180), early stopping is essential.
+The frozen backbone achieves $0.576$ target accuracy vs.\ $0.152$ for scratch,
+a $+42$ pp gain from ImageNet pretraining alone~\cite{kornblith2019transfer}.
+Fine-tuning further raises target accuracy to $0.680$ ($+10$ pp over frozen),
+confirming that adapting the final residual blocks to the small source domain
+is beneficial even with only 126 training images.
+Early stopping (patience\,=\,7) is critical: without it, fine-tuning overfits
+to the Art training set and its higher variance across seeds ($\pm0.089$
+vs.\ scratch's $\pm0.058$) reflects sensitivity to the split composition
+at these tiny dataset sizes.
 
 \subsection{What does the $\alpha/\beta$ ratio reveal about the Art\,$\to$\,Clipart gap?}
 
@@ -394,14 +399,21 @@ without ablating the object silhouette, which is critical for retaining the clas
 
 \subsection{Is target fine-tuning or style augmentation the better adaptation strategy?}
 
-Target fine-tuning reduces $\Delta_{\text{shift}}$ more than style augmentation.
-The Art\,$\to$\,Clipart shift is dominated by colour distribution and line-art appearance,
-which 40 real Clipart examples per class are sufficient to capture at the feature level.
-Style augmentation is label-free and provides additional training signal, but
-the NST procedure generates painterly artefacts rather than authentic vector-art
-graphics, limiting its fidelity to the true target distribution.
-Nevertheless, style augmentation offers a meaningful improvement over the unadapted
-baseline at zero target-label cost.
+Target fine-tuning is the clear winner: it achieves $0.883$ target accuracy with a
+\emph{negative} $\Delta_{\text{shift}} = -0.097$, meaning the adapted model
+actually performs \emph{better} on the target than on the source.
+This inversion occurs because the Clipart test split is larger and more diverse
+(506 images across six classes) than the Art test set (27 images), giving target
+evaluation a more stable estimate.
+
+Style augmentation reaches $0.714$ target accuracy ($+3.4$ pp over the unadapted
+fine-tuned baseline of $0.680$), confirming that NST-generated images do bridge
+part of the domain gap.
+However, the synthetic images introduce painterly artefacts absent from true Clipart,
+limiting the alignment.
+The key tradeoff is clear: target fine-tuning requires 40 labelled target images per
+class and achieves $+20.3$ pp gain; style augmentation requires zero target labels
+and achieves $+3.4$ pp.
 
 \subsection{Where does the model still fail after adaptation?}
 
